@@ -61,6 +61,8 @@ Tested K=2 through K=8 using the Elbow Method and Silhouette Score. Silhouette i
 statistically maximized at K=2 (0.433), but that collapses into an uninformative "big
 spenders vs. everyone else" split — not something a marketing team can act on.
 
+![Elbow and Silhouette Analysis](images/chart1_k_selection.png)
+
 **K=4 was chosen instead** (silhouette=0.337): the first local optimum after K=2, and the
 smallest K that still produces segments a marketing team could design distinct campaigns
 around. This is a deliberate trade-off — statistical optimality isn't always the right
@@ -80,6 +82,9 @@ different situation from a cluster with low spend and no purchases in six months
 | New Customers | 19.3% | 18.1 days | 2.1 orders | £552 |
 | Lost Customers | 37.2% | 182.5 days | 1.3 orders | £344 |
 
+![Customer Segments Scatter Plot](images/chart2_segments_scatter.png)
+
+![PCA Projection of Segments](images/chart3_pca_projection.png)
 ## Statistical Validation
 
 Visual separation in a scatter plot isn't proof that segments actually differ — I validated
@@ -105,6 +110,8 @@ anything in six months, and the recommended actions for those two groups are opp
 VIP customers are 16.5% of the base but generate revenue wildly disproportionate to that
 share, while Lost Customers are the largest segment by count (37.2%) and the least valuable
 — a fairly clean Pareto pattern. Budget should follow that asymmetry, not headcount.
+
+![Segment Size and Average Spend](images/chart4_segment_summary.png)
 
 ## Beyond E-Commerce
 
