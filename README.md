@@ -186,4 +186,5 @@ months for the RFM-based segmentation to naturally identify them.
 - `customer_segmentation.ipynb` — full notebook, code and outputs included
 - `customer_segments.csv` — every customer with RFM values, cluster ID, and segment label
 - `cluster_profile.csv` — summary statistics per segment
-- `images/` — exported charts (elbow/silhouette, segment scatter, PCA projection, segment summary)
+- `images/` — exported charts: elbow/silhouette, segment scatter, PCA projection, segment
+  summary, feature importance, confusion matrix
