@@ -170,7 +170,7 @@ depending on the actual cost structure of the marketing action being triggered.
 90 days for early loyalty enrollment or dedicated onboarding — rather than waiting 6+
 months for the RFM-based segmentation to naturally identify them.
 
-## Limitations & Next Steps
+## Limitations
 
 - RFM is product-agnostic; segmenting within product categories could add resolution
 - The early-lifecycle model only uses first-90-day transaction behavior; adding signup
