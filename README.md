@@ -173,11 +173,13 @@ months for the RFM-based segmentation to naturally identify them.
 ## Limitations & Next Steps
 
 - RFM is product-agnostic; segmenting within product categories could add resolution
-- The predictive model above solves fast segment lookup, not early-lifecycle (cold-start)
-  prediction — that would require different features (signup channel, first-order value,
-  browsing behavior) not present in this dataset
+- The early-lifecycle model only uses first-90-day transaction behavior; adding signup
+  channel, marketing source, or browsing data (if available) could improve prediction
+  further, especially for the customers the model currently misses (recall=0.71)
 - K-Means assumes spherical, similarly-sized clusters — worth comparing against DBSCAN or
   Gaussian Mixture Models, especially given the boundary misclassifications observed above
+- The 90-day cutoff and 6-month cohort window were chosen for this dataset's ~12-month span;
+  a production deployment would need to validate these windows against actual business cycles
 
 ## Files
 
