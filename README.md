@@ -152,8 +152,6 @@ they would, rather than being spread randomly across all segment pairs.
 ## Limitations & Next Steps
 
 - RFM is product-agnostic; segmenting within product categories could add resolution
-- K-Means assumes spherical, similarly-sized clusters — worth comparing against DBSCAN or
-  Gaussian Mixture Models
 - The predictive model above solves fast segment lookup, not early-lifecycle (cold-start)
   prediction — that would require different features (signup channel, first-order value,
   browsing behavior) not present in this dataset
