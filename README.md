@@ -120,13 +120,45 @@ segment subscribers the same way — Recency as days since last recharge, Freque
 recharges per month, Monetary as ARPU — to flag churn-risk users and high-value subscribers
 worth protecting, using the exact same pipeline.
 
+## Predictive Extension: Fast Segment Classification
+
+K-Means assigns segments by computing distance to cluster centroids — useful for a batch
+analysis, but not something you'd want to recompute for every new transaction. I trained a
+Random Forest classifier to approximate the same assignment rule as a lightweight,
+interpretable lookup (97% accuracy, weighted F1=0.97 on a held-out test set of 868 customers).
+
+**Important caveat:** since segments were derived directly from RFM values via K-Means, this
+model is best understood as a fast approximation of the clustering rule, not a solution to
+the cold-start problem of predicting a customer's segment before they have any purchase
+history. A genuine early-lifecycle prediction model would need different features — first-order
+value, signup channel, or browsing behavior.
+
+![Feature Importance](images/chart5_feature_importance.png)
+
+Feature importance confirms the earlier statistical finding: **Recency (0.41)** is the
+strongest predictor, ahead of Monetary (0.31) and Frequency (0.29). This lines up with the
+Tukey HSD result above — since New and Lost customers are statistically indistinguishable on
+Monetary alone (p=0.94), the model has to lean on Recency to separate them, which is exactly
+the pattern the statistical test predicted.
+
+![Confusion Matrix](images/chart6_confusion_matrix.png)
+
+Misclassifications cluster at two boundaries: Lost↔Loyal (7 errors) and Loyal↔New (5 errors)
+— customers sitting near a cluster edge rather than at its center. This tracks with the
+moderate Silhouette score (0.337) reported earlier: K-Means didn't produce perfectly separated
+clusters, and the classifier's errors show up exactly where that imperfect separation predicts
+they would, rather than being spread randomly across all segment pairs.
+
 ## Limitations & Next Steps
 
 - RFM is product-agnostic; segmenting within product categories could add resolution
 - K-Means assumes spherical, similarly-sized clusters — worth comparing against DBSCAN or
   Gaussian Mixture Models
-- This is descriptive, not predictive — a classifier trained on early-lifecycle signals
-  could predict segment membership for new customers before a full purchase history exists
+- The predictive model above solves fast segment lookup, not early-lifecycle (cold-start)
+  prediction — that would require different features (signup channel, first-order value,
+  browsing behavior) not present in this dataset
+- K-Means assumes spherical, similarly-sized clusters — worth comparing against DBSCAN or
+  Gaussian Mixture Models, especially given the boundary misclassifications observed above
 
 ## Files
 
