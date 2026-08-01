@@ -149,6 +149,27 @@ moderate Silhouette score (0.337) reported earlier: K-Means didn't produce perfe
 clusters, and the classifier's errors show up exactly where that imperfect separation predicts
 they would, rather than being spread randomly across all segment pairs.
 
+## Early-Lifecycle Prediction: Will a New Customer Become VIP?
+
+Using only a customer's first 90 days of purchase behavior — order frequency, total
+spend, and average order value — I trained a logistic regression model to predict
+whether they would ultimately become a VIP customer over their full lifetime, using a
+cohort of 2,815 customers with at least 6 months of subsequent history (to avoid biasing
+results with customers who simply hadn't had time to be observed).
+
+**ROC-AUC: 0.884** — early behavior is a strong predictor of eventual VIP status, well
+above chance (0.5).
+
+The model favors recall over precision for the VIP class (recall=0.71, precision=0.64),
+using class-weighted training deliberately: in a real deployment, the cost of missing a
+future VIP (a lost retention opportunity) is higher than the cost of a false positive
+(a slightly wasted onboarding discount). This threshold could be tuned differently
+depending on the actual cost structure of the marketing action being triggered.
+
+**Business application:** flag high-probability future-VIP customers within their first
+90 days for early loyalty enrollment or dedicated onboarding — rather than waiting 6+
+months for the RFM-based segmentation to naturally identify them.
+
 ## Limitations & Next Steps
 
 - RFM is product-agnostic; segmenting within product categories could add resolution
